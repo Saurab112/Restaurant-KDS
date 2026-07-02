@@ -6,7 +6,7 @@ namespace Kds.Domain.Entities
 	{
 		protected Order() { }
 
-		public Order(string ticketNumber, string tableNumber, OrderTypeEnum orderType)
+		public Order(string ticketNumber, string? tableNumber, OrderTypeEnum orderType)
 		{
 			Id = Guid.NewGuid();
 			TicketNumber = ticketNumber;
@@ -18,7 +18,7 @@ namespace Kds.Domain.Entities
 
 		public Guid Id { get; protected set; }
 		public string TicketNumber { get; protected set; } = null!;
-		public string TableNumber { get; protected set; } = null!;
+		public string? TableNumber { get; protected set; }
 		public OrderTypeEnum OrderType { get; protected set; } = null!;
 		public OrderStatusEnum Status { get; protected set; } = null!;
 		public DateTime CreatedAt { get; protected set; }
