@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Kds.Application\Kds.Application.csproj" />
+    <ProjectReference Include="..\Kds.Domain\Kds.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

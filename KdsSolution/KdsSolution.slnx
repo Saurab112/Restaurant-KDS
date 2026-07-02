@@ -1,1 +1,6 @@
-<Solution />
+<Solution>
+  <Project Path="Kds.Application/Kds.Application.csproj" />
+  <Project Path="Kds.Domain/Kds.Domain.csproj" />
+  <Project Path="Kds.Infrastructure/Kds.Infrastructure.csproj" />
+  <Project Path="Kds.WebApi/Kds.WebApi.csproj" />
+</Solution>
