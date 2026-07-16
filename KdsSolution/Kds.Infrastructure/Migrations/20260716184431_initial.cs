@@ -63,10 +63,14 @@ namespace Kds.Infrastructure.Migrations
                     created_on = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     kot_no = table.Column<long>(type: "bigint", nullable: false),
                     is_kot_printed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    kot_printed_on = table.Column<DateTime>(type: "datetime(6)", maxLength: 200, nullable: false),
+                    kot_printed_on = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     is_cancel_kot_printed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    cancelled_kot_printed_on = table.Column<DateTime>(type: "datetime(6)", maxLength: 200, nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false)
+                    cancelled_kot_printed_on = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    status = table.Column<int>(type: "int", nullable: false),
+                    kot_preparation_started_on = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    kot_ready_on = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    kot_cancelled_on = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    kot_completed_on = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,14 +92,24 @@ namespace Kds.Infrastructure.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     order_id = table.Column<long>(type: "bigint", nullable: false),
+                    kot_id = table.Column<long>(type: "bigint", nullable: false),
                     menu_item_id = table.Column<long>(type: "bigint", nullable: false),
                     quantity = table.Column<long>(type: "bigint", nullable: false),
                     remarks = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true, collation: "utf8mb4_unicode_ci")
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    created_on = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    status = table.Column<int>(type: "int", nullable: false),
+                    cancelled_on = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PRIMARY", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_order_item_kot_kot_id",
+                        column: x => x.kot_id,
+                        principalTable: "kot",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_order_item_menu_item_menu_item_id",
                         column: x => x.menu_item_id,
@@ -118,6 +132,11 @@ namespace Kds.Infrastructure.Migrations
                 column: "order_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_order_item_kot_id",
+                table: "order_item",
+                column: "kot_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_order_item_menu_item_id",
                 table: "order_item",
                 column: "menu_item_id");
@@ -132,10 +151,10 @@ namespace Kds.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "kot");
+                name: "order_item");
 
             migrationBuilder.DropTable(
-                name: "order_item");
+                name: "kot");
 
             migrationBuilder.DropTable(
                 name: "menu_item");

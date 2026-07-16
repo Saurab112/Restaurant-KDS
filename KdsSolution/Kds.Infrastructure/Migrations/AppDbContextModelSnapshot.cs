@@ -33,8 +33,7 @@ namespace Kds.Infrastructure.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CancelledKotPrintedOn")
-                        .HasMaxLength(200)
+                    b.Property<DateTime?>("CancelledKotPrintedOn")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("cancelled_kot_printed_on");
 
@@ -50,14 +49,29 @@ namespace Kds.Infrastructure.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("is_kot_printed");
 
+                    b.Property<DateTime?>("KotCancelledOn")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("kot_cancelled_on");
+
+                    b.Property<DateTime?>("KotCompletedOn")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("kot_completed_on");
+
                     b.Property<long>("KotNo")
                         .HasColumnType("bigint")
                         .HasColumnName("kot_no");
 
-                    b.Property<DateTime>("KotPrintedOn")
-                        .HasMaxLength(200)
+                    b.Property<DateTime?>("KotPreparationStartedOn")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("kot_preparation_started_on");
+
+                    b.Property<DateTime?>("KotPrintedOn")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("kot_printed_on");
+
+                    b.Property<DateTime?>("KotReadyOn")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("kot_ready_on");
 
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint")
@@ -148,6 +162,18 @@ namespace Kds.Infrastructure.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime?>("CancelledOn")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("cancelled_on");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_on");
+
+                    b.Property<long>("KotId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("kot_id");
+
                     b.Property<long>("MenuItemId")
                         .HasColumnType("bigint")
                         .HasColumnName("menu_item_id");
@@ -165,8 +191,14 @@ namespace Kds.Infrastructure.Migrations
                         .HasColumnType("varchar(500)")
                         .HasColumnName("remarks");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
+
                     b.HasKey("Id")
                         .HasName("PRIMARY");
+
+                    b.HasIndex("KotId");
 
                     b.HasIndex("MenuItemId");
 
@@ -177,17 +209,23 @@ namespace Kds.Infrastructure.Migrations
 
             modelBuilder.Entity("Kds.Domain.Entities.Kot", b =>
                 {
-                    b.HasOne("Kds.Domain.Entities.Order", "Order")
+                    b.HasOne("Kds.Domain.Entities.Order", "RestaurantOrder")
                         .WithMany("Kots")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("RestaurantOrder");
                 });
 
             modelBuilder.Entity("Kds.Domain.Entities.OrderItem", b =>
                 {
+                    b.HasOne("Kds.Domain.Entities.Kot", "Kot")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("KotId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Kds.Domain.Entities.MenuItem", "MenuItem")
                         .WithMany()
                         .HasForeignKey("MenuItemId")
@@ -200,9 +238,16 @@ namespace Kds.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Kot");
+
                     b.Navigation("MenuItem");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Kds.Domain.Entities.Kot", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Kds.Domain.Entities.Order", b =>
