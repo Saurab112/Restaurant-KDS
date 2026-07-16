@@ -8,9 +8,8 @@ namespace Kds.Domain.Entities
 	{
 		protected MenuItem() { }
 
-		public MenuItem(long id, string name, string category, decimal price)
+		public MenuItem(string name, string category, decimal price)
 		{
-			Id = id;
 			Name = name;
 			Category = category;
 			Price = price;

@@ -8,22 +8,24 @@ namespace Kds.Domain.Entities
 	{
 		protected OrderItem() { }
 
-		public OrderItem(Order order, long menuItemId, long quantity, string? remarks)
+		public OrderItem(Order order, MenuItem menuItem, long quantity, string? remarks)
 		{
-			Id = Guid.NewGuid();
 			Order = order;
-			OrderId = order.Id;
-			MenuItemId = menuItemId;
+			OrderId = order.OrderId;
+			MenuItem = menuItem;
 			Quantity = quantity;
 			Remarks = remarks;
+			CreatedOn = DateTime.Now;
 		}
 
-		public Guid Id { get; protected set; }
-		public Guid OrderId { get; protected set; }
+		public long Id { get; protected set; }
+		public long OrderId { get; protected set; }
 		public Order Order { get; protected set; } = null!; 
 		public long MenuItemId { get; protected set; }
 		public MenuItem MenuItem { get; protected set; } = null!; 
 		public long Quantity { get; protected set; } 
 		public string? Remarks { get; protected set; } 
+		//newly added
+		public DateTime CreatedOn { get; protected set; }
 	}
 }

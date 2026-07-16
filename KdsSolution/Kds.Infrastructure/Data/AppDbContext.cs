@@ -1,26 +1,29 @@
 ﻿using Kds.Domain.Entities;
+using Kds.Infrastructure.Persistence.Configuration;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace Kds.Infrastructure.Data
 {
-	public class AppDbContext: DbContext
+	public class AppDbContext : DbContext
 	{
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
 		public DbSet<Order> Orders => Set<Order>();
 		public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 		public DbSet<MenuItem> MenuItems => Set<MenuItem>();
-		public DbSet<OrderTimeline> OrderTimelines => Set<OrderTimeline>();
+		public DbSet<Kot> Kots => Set<Kot>();
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+			modelBuilder
+				.UseCollation("utf8mb4_unicode_ci")
+				.HasCharSet("utf8mb4");
 
-			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+			modelBuilder.ApplyConfiguration(new OrderConfiguration());
+			modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
+			modelBuilder.ApplyConfiguration(new MenuItemConfiguration());
+			modelBuilder.ApplyConfiguration(new KotConfiguration());
 		}
 	}
 }

@@ -14,14 +14,9 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		{
 			builder.ToTable("order");
 
-			builder.HasKey(o => o.Id);
-			builder.Property(o => o.Id)
-				.HasColumnName("id")
-				.IsRequired();
-
-			builder.Property(o => o.TicketNumber)
-				.HasColumnName("ticket_number")
-				.HasMaxLength(50)
+			builder.HasKey(o => o.OrderId).HasName("PRIMARY");
+			builder.Property(o => o.OrderId)
+				.HasColumnName("order_id")
 				.IsRequired();
 
 			builder.Property(o => o.TableNumber)
@@ -30,28 +25,19 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.IsRequired(false);
 
 			builder.Property(o => o.OrderType)
-				.HasColumnName("order_type_id")
+				.HasColumnName("order_type")
 				.HasConversion<OrderTypeConverter>()
 				.IsRequired();
 
 			builder.Property(o => o.Status)
-				.HasColumnName("order_status_id")
+				.HasColumnName("status")
 				.HasConversion<OrderStatusConverter>()
 				.IsRequired();
 
-			builder.Property(o => o.CreatedAt)
-				.HasColumnName("created_at")
+			builder.Property(o => o.CreatedOn)
+				.HasColumnName("created_on")
 				.IsRequired();
 
-			builder.HasMany(o => o.OrderItems)
-				.WithOne(oi => oi.Order)
-				.HasForeignKey(oi => oi.OrderId)
-				.OnDelete(DeleteBehavior.Restrict);
-
-			builder.HasMany(o => o.OrderTimelines)
-				.WithOne(ot => ot.Order)
-				.HasForeignKey(ot => ot.OrderId)
-				.OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }
