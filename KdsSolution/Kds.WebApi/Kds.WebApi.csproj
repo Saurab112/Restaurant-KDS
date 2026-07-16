@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Kds.Infrastructure\Kds.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
