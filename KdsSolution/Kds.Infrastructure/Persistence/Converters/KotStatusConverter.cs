@@ -23,7 +23,7 @@ namespace Kds.Infrastructure.Persistence.Converters
 			3 => KotStatusEnum.Ready,
 			4 => KotStatusEnum.Completed,
 			5 => KotStatusEnum.Cancelled,
-			_ => throw new ArgumentOutOfRangeException(nameof(id), $"Unknown Order Status ID: {id}")
+			_ => throw new ArgumentOutOfRangeException(nameof(id), $"Unknown Kot Status ID: {id}")
 		};
 	}
 }

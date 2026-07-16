@@ -34,25 +34,25 @@ namespace Kds.Infrastructure.Persistence.Configuration
 
 			builder.Property(oi => oi.IsKotPrinted)
 				.HasColumnName("is_kot_printed")
-				.IsRequired(false);
+				.IsRequired();
 
 			builder.Property(oi => oi.KotPrintedOn)
 				.HasColumnName("kot_printed_on")
 				.HasMaxLength(200)
-				.IsRequired(false);
+				.IsRequired();
 
 			builder.Property(oi => oi.IsCancelKotPrinted)
 				.HasColumnName("is_cancel_kot_printed")
-				.IsRequired(false);
+				.IsRequired();
 
 			builder.Property(oi => oi.CancelledKotPrintedOn)
 				.HasColumnName("cancelled_kot_printed_on")
 				.HasMaxLength(200)
-				.IsRequired(false);
+				.IsRequired();
 
 			builder.Property(oi => oi.Status)
 				.HasColumnName("status")
-				.HasConversion(new KotStatusConverter())
+				.HasConversion<KotStatusConverter>()
 				.IsRequired();
 
 			builder.HasOne(oi => oi.Order)

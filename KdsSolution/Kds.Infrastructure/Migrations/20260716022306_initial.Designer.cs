@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kds.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260716005848_initial")]
+    [Migration("20260716022306_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -27,11 +27,65 @@ namespace Kds.Infrastructure.Migrations
             MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("Kds.Domain.Entities.Kot", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CancelledKotPrintedOn")
+                        .HasMaxLength(200)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("cancelled_kot_printed_on");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_on");
+
+                    b.Property<bool>("IsCancelKotPrinted")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("is_cancel_kot_printed");
+
+                    b.Property<bool>("IsKotPrinted")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("is_kot_printed");
+
+                    b.Property<long>("KotNo")
+                        .HasColumnType("bigint")
+                        .HasColumnName("kot_no");
+
+                    b.Property<DateTime>("KotPrintedOn")
+                        .HasMaxLength(200)
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("kot_printed_on");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("order_id");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("kot", (string)null);
+                });
+
             modelBuilder.Entity("Kds.Domain.Entities.MenuItem", b =>
                 {
                     b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -50,21 +104,24 @@ namespace Kds.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("price");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
 
                     b.ToTable("menu_item", (string)null);
                 });
 
             modelBuilder.Entity("Kds.Domain.Entities.Order", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
-                        .HasColumnName("id");
+                        .HasColumnType("bigint")
+                        .HasColumnName("order_id");
 
-                    b.Property<DateTime>("CreatedAt")
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("OrderId"));
+
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)")
-                        .HasColumnName("created_at");
+                        .HasColumnName("created_on");
 
                     b.Property<int>("OrderType")
                         .HasColumnType("int")
@@ -79,32 +136,27 @@ namespace Kds.Infrastructure.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("table_number");
 
-                    b.Property<string>("TicketNumber")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("ticket_number");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicketNumber");
+                    b.HasKey("OrderId")
+                        .HasName("PRIMARY");
 
                     b.ToTable("order", (string)null);
                 });
 
             modelBuilder.Entity("Kds.Domain.Entities.OrderItem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
+                        .HasColumnType("bigint")
                         .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<long>("MenuItemId")
                         .HasColumnType("bigint")
                         .HasColumnName("menu_item_id");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("char(36)")
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint")
                         .HasColumnName("order_id");
 
                     b.Property<long>("Quantity")
@@ -116,7 +168,8 @@ namespace Kds.Infrastructure.Migrations
                         .HasColumnType("varchar(500)")
                         .HasColumnName("remarks");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PRIMARY");
 
                     b.HasIndex("MenuItemId");
 
@@ -125,38 +178,15 @@ namespace Kds.Infrastructure.Migrations
                     b.ToTable("order_item", (string)null);
                 });
 
-            modelBuilder.Entity("Kds.Domain.Entities.OrderTimeline", b =>
+            modelBuilder.Entity("Kds.Domain.Entities.Kot", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
-                        .HasColumnName("id");
+                    b.HasOne("Kds.Domain.Entities.Order", "Order")
+                        .WithMany("Kots")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Property<DateTime>("ChangedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("changed_at");
-
-                    b.Property<string>("FromStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("from_status");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("order_id");
-
-                    b.Property<string>("ToStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("to_status");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("order_timeline", (string)null);
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Kds.Domain.Entities.OrderItem", b =>
@@ -178,22 +208,11 @@ namespace Kds.Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Kds.Domain.Entities.OrderTimeline", b =>
-                {
-                    b.HasOne("Kds.Domain.Entities.Order", "Order")
-                        .WithMany("OrderTimelines")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Kds.Domain.Entities.Order", b =>
                 {
-                    b.Navigation("OrderItems");
+                    b.Navigation("Kots");
 
-                    b.Navigation("OrderTimelines");
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }
