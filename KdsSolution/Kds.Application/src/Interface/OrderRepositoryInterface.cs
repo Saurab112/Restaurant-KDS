@@ -9,5 +9,6 @@ namespace Kds.Application.Interface
 	{
 		Task InsertAsync(Order restaurantOrder);
 		Task<Order?> GetByIdAsync(long orderId);
+		Task<Order?> GetOrderByOrderItemId(long orderItemId);
 	}
 }

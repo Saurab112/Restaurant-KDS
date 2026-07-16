@@ -60,19 +60,5 @@ namespace Kds.Domain.Entities
 				kot.MarkAsReady();
 			}
 		}
-		public bool Pending()
-		{
-			return Status == OrderStatusEnum.Pending;
-		}
-
-		public bool IsCancelled()
-		{
-			return Status == OrderStatusEnum.Cancelled;
-		}
-
-		public bool IsComplete()
-		{
-			return Status == OrderStatusEnum.Completed;
-		}
 	}
 }

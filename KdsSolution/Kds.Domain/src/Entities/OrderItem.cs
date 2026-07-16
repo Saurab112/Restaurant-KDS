@@ -35,26 +35,9 @@ namespace Kds.Domain.Entities
 		{
 			Status = OrderItemStatusEnum.Ready;
 		}
-
-
-		public void MarkAsReceived()
-		{
-			Status = OrderItemStatusEnum.Received;
-		}
-
-		public void MarkAsCancelled()
-		{
-			Status = OrderItemStatusEnum.Cancelled;
-			CancelledOn = DateTime.Now;
-		}
-
 		public bool IsCancelled()
 		{
 			return Status == OrderItemStatusEnum.Cancelled;
-		}
-		public bool IsReceived()
-		{
-			return Status == OrderItemStatusEnum.Received;
 		}
 		public bool IsPreparationStarted()
 		{

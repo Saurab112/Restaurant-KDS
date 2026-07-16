@@ -33,22 +33,6 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.HasColumnName("kot_no")
 				.IsRequired();
 
-			builder.Property(k => k.IsKotPrinted)
-				.HasColumnName("is_kot_printed")
-				.IsRequired();
-
-			builder.Property(k => k.KotPrintedOn)
-				.HasColumnName("kot_printed_on")
-				.IsRequired(false);
-
-			builder.Property(k => k.IsCancelKotPrinted)
-				.HasColumnName("is_cancel_kot_printed")
-				.IsRequired();
-
-			builder.Property(k => k.CancelledKotPrintedOn)
-				.HasColumnName("cancelled_kot_printed_on")
-				.IsRequired(false);
-
 			builder.Property(k => k.Status)
 				.HasColumnName("status")
 				.HasConversion<KotStatusConverter>()

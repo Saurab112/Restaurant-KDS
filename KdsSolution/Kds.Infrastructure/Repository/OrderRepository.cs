@@ -28,5 +28,16 @@ namespace Kds.Infrastructure.Repository
 		{
 			await _dbContext.Orders.AddAsync(restaurantOrder);
 		}
+
+		public async Task<Order?> GetOrderByOrderItemId(long orderItemId)
+		{
+			return await _dbContext.Orders
+				.Include(e => e.OrderItems)
+				.ThenInclude(e => e.MenuItem)
+				.Include(e => e.OrderItems)
+						.ThenInclude(e => e.Kot)
+				.FirstOrDefaultAsync(o => o.OrderItems.Any(e => e.Id == orderItemId));
+		}
 	}
 }
+
