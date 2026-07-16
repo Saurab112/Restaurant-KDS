@@ -8,13 +8,14 @@ namespace Kds.Domain.Entities
 	{
 		protected OrderItem() { }
 
-		public OrderItem(Order order, long menuItemId, long quantity, string? remarks)
+		public OrderItem(Order order, MenuItem menuItem, long quantity, string? remarks)
 		{
 			Order = order;
 			OrderId = order.OrderId;
-			MenuItemId = menuItemId;
+			MenuItem = menuItem;
 			Quantity = quantity;
 			Remarks = remarks;
+			CreatedOn = DateTime.Now;
 		}
 
 		public long Id { get; protected set; }
@@ -24,5 +25,7 @@ namespace Kds.Domain.Entities
 		public MenuItem MenuItem { get; protected set; } = null!; 
 		public long Quantity { get; protected set; } 
 		public string? Remarks { get; protected set; } 
+		//newly added
+		public DateTime CreatedOn { get; protected set; }
 	}
 }

@@ -7,7 +7,7 @@ namespace Kds.WebApi.ApiControllers
 	{
 		public async Task<IActionResult> CreateTableOrder()
 		{
-
+			return Ok();
 		}
 	}
 }

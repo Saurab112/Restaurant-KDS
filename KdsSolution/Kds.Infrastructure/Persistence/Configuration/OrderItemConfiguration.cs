@@ -35,6 +35,11 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.HasMaxLength(500)
 				.IsRequired(false);
 
+			builder.Property(oi => oi.CreatedOn)
+				.HasColumnName("created_on")
+				.HasMaxLength(100)
+				.IsRequired();
+
 			builder.HasOne(oi => oi.MenuItem)
 				.WithMany()
 				.HasForeignKey(oi => oi.MenuItemId)
