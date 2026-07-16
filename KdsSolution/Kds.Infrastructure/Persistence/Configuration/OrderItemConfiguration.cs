@@ -13,7 +13,7 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		{
 			builder.ToTable("order_item");
 
-			builder.HasKey(oi => oi.Id);
+			builder.HasKey(oi => oi.Id).HasName("PRIMARY");
 			builder.Property(oi => oi.Id)
 				.HasColumnName("id")
 				.IsRequired();

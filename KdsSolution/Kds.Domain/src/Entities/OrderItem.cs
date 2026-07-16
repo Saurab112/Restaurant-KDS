@@ -10,16 +10,15 @@ namespace Kds.Domain.Entities
 
 		public OrderItem(Order order, long menuItemId, long quantity, string? remarks)
 		{
-			Id = Guid.NewGuid();
 			Order = order;
-			OrderId = order.Id;
+			OrderId = order.OrderId;
 			MenuItemId = menuItemId;
 			Quantity = quantity;
 			Remarks = remarks;
 		}
 
-		public Guid Id { get; protected set; }
-		public Guid OrderId { get; protected set; }
+		public long Id { get; protected set; }
+		public long OrderId { get; protected set; }
 		public Order Order { get; protected set; } = null!; 
 		public long MenuItemId { get; protected set; }
 		public MenuItem MenuItem { get; protected set; } = null!; 

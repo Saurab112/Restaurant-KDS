@@ -16,8 +16,8 @@ namespace Kds.Domain.Enums
 		}
 
 		public static readonly OrderStatusEnum Pending = new(1, "Pending");
-		public static readonly OrderStatusEnum Preparing = new(2, "Preparing");
-		public static readonly OrderStatusEnum Ready = new(3, "Ready");
+		public static readonly OrderStatusEnum Preparing = new(2, "Ready");
+		public static readonly OrderStatusEnum Ready = new(3, "Closed");
 		public static readonly OrderStatusEnum Completed = new(4, "Completed");
 		public static readonly OrderStatusEnum Cancelled = new(5, "Cancelled");
 	}

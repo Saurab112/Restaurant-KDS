@@ -14,14 +14,9 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		{
 			builder.ToTable("order");
 
-			builder.HasKey(o => o.Id);
-			builder.Property(o => o.Id)
-				.HasColumnName("id")
-				.IsRequired();
-
-			builder.Property(o => o.TicketNumber)
-				.HasColumnName("ticket_number")
-				.HasMaxLength(50)
+			builder.HasKey(o => o.OrderId).HasName("PRIMARY");
+			builder.Property(o => o.OrderId)
+				.HasColumnName("order_id")
 				.IsRequired();
 
 			builder.Property(o => o.TableNumber)
@@ -39,11 +34,10 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.HasConversion<OrderStatusConverter>()
 				.IsRequired();
 
-			builder.Property(o => o.CreatedAt)
-				.HasColumnName("created_at")
+			builder.Property(o => o.CreatedOn)
+				.HasColumnName("created_on")
 				.IsRequired();
 
-			builder.HasIndex(o => o.TicketNumber);
 		}
 	}
 }

@@ -13,10 +13,9 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		{
 			builder.ToTable("menu_item");
 
-			builder.HasKey(m => m.Id);
+			builder.HasKey(m => m.Id).HasName("PRIMARY");
 			builder.Property(m => m.Id)
-				.HasColumnName("id")
-				.ValueGeneratedNever(); 
+				.HasColumnName("id");
 
 			builder.Property(m => m.Name)
 				.HasColumnName("menu_item_name")

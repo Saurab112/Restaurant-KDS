@@ -11,7 +11,6 @@ namespace Kds.Infrastructure.Data
 		public DbSet<Order> Orders => Set<Order>();
 		public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 		public DbSet<MenuItem> MenuItems => Set<MenuItem>();
-		public DbSet<OrderTimeline> OrderTimelines => Set<OrderTimeline>();
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -23,7 +22,6 @@ namespace Kds.Infrastructure.Data
 			modelBuilder.ApplyConfiguration(new OrderConfiguration());
 			modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
 			modelBuilder.ApplyConfiguration(new MenuItemConfiguration());
-			modelBuilder.ApplyConfiguration(new OrderTimelineConfiguration());
 		}
 	}
 }
