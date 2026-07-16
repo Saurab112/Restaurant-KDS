@@ -24,7 +24,7 @@ namespace Kds.Application.Services
 			if (orderCreateDto.OrderItems is null || orderCreateDto.OrderItems.Count == 0)
 				throw new ArgumentException("Order must contain at least one item.");
 
-			var order = new Order(orderCreateDto.TableNumber, orderCreateDto.OrderType);
+			var order = new Order(orderCreateDto.TableNumber);
 
 			//var kotNo = await _kotSequenceProvider.GetNextKotNoAsync();
 			var kotNo = 1; // For demonstration purposes, using a static value. Replace with actual sequence provider.
@@ -44,7 +44,7 @@ namespace Kds.Application.Services
 			return order;
 		}
 
-		public async Task MarkOrderItemAsPreparationStarted(long orderItemId, long userId)
+		public async Task MarkOrderItemAsPreparationStarted(long orderItemId)
 		{
 			var order = await _orderRepository.GetOrderByOrderItemId(orderItemId).ConfigureAwait(false) ?? throw new OrderNotFoundException();
 			OrderItem orderItem = order.OrderItems.SingleOrDefault(a => a.Id == orderItemId) ?? throw new OrderItemNotFoundException(orderItemId);
@@ -53,7 +53,7 @@ namespace Kds.Application.Services
 			await _unitOfWork.SaveChangesAsync(CancellationToken.None);
 		}
 
-		public async Task MarkOrderItemAsReady(long orderItemId, long userId)
+		public async Task MarkOrderItemAsReady(long orderItemId)
 		{
 			var order = await _orderRepository.GetOrderByOrderItemId(orderItemId).ConfigureAwait(false) ?? throw new OrderNotFoundException();
 			OrderItem orderItem = order.OrderItems.SingleOrDefault(a => a.Id == orderItemId) ?? throw new OrderItemNotFoundException(orderItemId);
