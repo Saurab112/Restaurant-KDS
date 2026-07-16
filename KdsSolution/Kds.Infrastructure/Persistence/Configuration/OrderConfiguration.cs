@@ -26,11 +26,6 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.HasMaxLength(50)
 				.IsRequired(false);
 
-			builder.Property(o => o.OrderType)
-				.HasColumnName("order_type")
-				.HasConversion<OrderTypeConverter>()
-				.IsRequired();
-
 			builder.Property(o => o.Status)
 				.HasColumnName("status")
 				.HasConversion<OrderStatusConverter>()

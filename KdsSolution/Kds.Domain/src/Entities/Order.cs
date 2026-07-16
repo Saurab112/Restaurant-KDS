@@ -7,17 +7,15 @@ namespace Kds.Domain.Entities
 	{
 		protected Order() { }
 
-		public Order(string? tableNumber, OrderTypeEnum orderType)
+		public Order(string? tableNumber)
 		{
 			TableNumber = tableNumber;
-			OrderType = orderType;
 			Status = OrderStatusEnum.Pending;
 			CreatedOn = DateTime.Now;
 		}
 
 		public long OrderId { get; protected set; }
 		public string? TableNumber { get; protected set; }
-		public OrderTypeEnum OrderType { get; protected set; } = null!;
 		public OrderStatusEnum Status { get; protected set; } = null!;
 		public DateTime CreatedOn { get; protected set; }
 
