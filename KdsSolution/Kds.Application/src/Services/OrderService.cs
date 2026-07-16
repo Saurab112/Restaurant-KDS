@@ -1,5 +1,5 @@
 ﻿using Kds.Application.DTO;
-using Kds.Application.ServiceInterface;
+using Kds.Application.Interface;
 using Kds.Domain.Entities;
 
 namespace Kds.Application.Services

@@ -1,7 +1,7 @@
 ﻿using Kds.Application.DTO;
 using Kds.Domain.Entities;
 
-namespace Kds.Application.ServiceInterface
+namespace Kds.Application.Interface
 {
 	public interface OrderServiceInterface
 	{

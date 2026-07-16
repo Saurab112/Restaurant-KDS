@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Kds.Application.ServiceInterface
+namespace Kds.Application.Interface
 {
 	public interface KotServiceInterface
 	{
