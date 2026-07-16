@@ -14,50 +14,54 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		{
 			builder.ToTable("kot");
 
-			builder.HasKey(oi => oi.Id).HasName("PRIMARY");
+			builder.HasKey(k => k.Id)
+				.HasName("PRIMARY");
 
-			builder.Property(oi => oi.Id)
+			builder.Property(k => k.Id)
 				.HasColumnName("id")
 				.IsRequired();
 
-			builder.Property(oi => oi.OrderId)
+			builder.Property(k => k.OrderId)
 				.HasColumnName("order_id")
 				.IsRequired();
 
-			builder.Property(oi => oi.CreatedOn)
+			builder.Property(k => k.CreatedOn)
 				.HasColumnName("created_on")
 				.IsRequired();
 
-			builder.Property(oi => oi.KotNo)
+			builder.Property(k => k.KotNo)
 				.HasColumnName("kot_no")
 				.IsRequired();
 
-			builder.Property(oi => oi.IsKotPrinted)
-				.HasColumnName("is_kot_printed")
-				.IsRequired();
-
-			builder.Property(oi => oi.KotPrintedOn)
-				.HasColumnName("kot_printed_on")
-				.HasMaxLength(200)
-				.IsRequired();
-
-			builder.Property(oi => oi.IsCancelKotPrinted)
-				.HasColumnName("is_cancel_kot_printed")
-				.IsRequired();
-
-			builder.Property(oi => oi.CancelledKotPrintedOn)
-				.HasColumnName("cancelled_kot_printed_on")
-				.HasMaxLength(200)
-				.IsRequired();
-
-			builder.Property(oi => oi.Status)
+			builder.Property(k => k.Status)
 				.HasColumnName("status")
 				.HasConversion<KotStatusConverter>()
 				.IsRequired();
 
-			builder.HasOne(oi => oi.RestaurantOrder)
-				.WithMany(a => a.Kots)
-				.HasForeignKey(oi => oi.OrderId)
+			builder.Property(k => k.KotPreparationStartedOn)
+				.HasColumnName("kot_preparation_started_on")
+				.IsRequired(false);
+
+			builder.Property(k => k.KotReadyOn)
+				.HasColumnName("kot_ready_on")
+				.IsRequired(false);
+
+			builder.Property(k => k.KotCancelledOn)
+				.HasColumnName("kot_cancelled_on")
+				.IsRequired(false);
+
+			builder.Property(k => k.KotCompletedOn)
+				.HasColumnName("kot_completed_on")
+				.IsRequired(false);
+
+			builder.HasOne(k => k.RestaurantOrder)
+				.WithMany(o => o.Kots)
+				.HasForeignKey(k => k.OrderId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			builder.HasMany(k => k.OrderItems)
+				.WithOne(oi => oi.Kot)
+				.HasForeignKey(oi => oi.KotId)
 				.OnDelete(DeleteBehavior.Restrict);
 		}
 	}

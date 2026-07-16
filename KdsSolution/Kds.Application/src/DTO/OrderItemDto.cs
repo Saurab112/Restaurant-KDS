@@ -7,7 +7,6 @@ namespace Kds.Application.DTO
 {
 	public class OrderItemDto
 	{
-		public long? OrderItemId { get; set; }
 		public long MenuItemId { get; set; }
 		public long Quantity { get; set; }
 		public decimal Rate { get; set; }

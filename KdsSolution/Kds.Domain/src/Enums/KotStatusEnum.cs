@@ -15,10 +15,10 @@ namespace Kds.Domain.Enums
 			Name = name;
 		}
 
-		public static readonly KotStatusEnum Pending = new(1, "PrepStarted");
-		public static readonly KotStatusEnum Preparing = new(2, "Ready");
-		public static readonly KotStatusEnum Ready = new(3, "Cancelled");
-		public static readonly KotStatusEnum Completed = new(4, "Pending");
-		public static readonly KotStatusEnum Cancelled = new(5, "Completed");
+		public static readonly KotStatusEnum Pending = new(1, "Pending");
+		public static readonly KotStatusEnum Preparing = new(2, "Preparing");
+		public static readonly KotStatusEnum Ready = new(3, "Ready");
+		public static readonly KotStatusEnum Cancelled = new(4, "Cancelled");
+		public static readonly KotStatusEnum Completed = new(5, "Completed");
 	}
 }

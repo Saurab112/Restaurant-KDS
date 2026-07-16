@@ -1,8 +1,4 @@
 ﻿using Kds.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
 
 namespace Kds.Domain.Entities
 {
@@ -22,10 +18,33 @@ namespace Kds.Domain.Entities
 		public Order RestaurantOrder { get; protected set; }
 		public DateTime CreatedOn { get; protected set; }
 		public long KotNo { get; protected set; }
-		public bool IsKotPrinted { get; protected set; }
-		public DateTime KotPrintedOn { get; protected set; }
-		public bool IsCancelKotPrinted { get; protected set;  }
-		public DateTime CancelledKotPrintedOn { get; protected set;  }
 		public KotStatusEnum Status { get; protected set; }
+		public ICollection<OrderItem> OrderItems { get; protected set; } = new List<OrderItem>();
+		public DateTime? KotPreparationStartedOn { get; protected set; }
+		public DateTime? KotReadyOn { get; protected set; }
+		public DateTime? KotCancelledOn { get; protected set; }
+		public DateTime? KotCompletedOn { get; protected set; }
+
+		public void MarkAsPreparationStarted()
+		{
+			Status = KotStatusEnum.Preparing;
+		}
+		public void MarkAsReady()
+		{
+			Status = KotStatusEnum.Ready;
+			KotReadyOn = DateTime.Now;
+		}
+		public void MarkAsCancelled()
+		{
+			Status = KotStatusEnum.Cancelled;
+			KotCancelledOn = DateTime.Now;
+		}
+
+		public void MarkAsCompleted()
+		{
+			Status = KotStatusEnum.Completed;
+			KotCompletedOn = DateTime.Now;
+		}
+
 	}
 }

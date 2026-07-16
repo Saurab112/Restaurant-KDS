@@ -1,9 +1,7 @@
 ﻿using Kds.Domain.Entities;
+using Kds.Infrastructure.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kds.Infrastructure.Persistence.Configuration
 {
@@ -13,13 +11,19 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		{
 			builder.ToTable("order_item");
 
-			builder.HasKey(oi => oi.Id).HasName("PRIMARY");
+			builder.HasKey(oi => oi.Id)
+				.HasName("PRIMARY");
+
 			builder.Property(oi => oi.Id)
 				.HasColumnName("id")
 				.IsRequired();
 
 			builder.Property(oi => oi.OrderId)
 				.HasColumnName("order_id")
+				.IsRequired();
+
+			builder.Property(oi => oi.KotId)
+				.HasColumnName("kot_id")
 				.IsRequired();
 
 			builder.Property(oi => oi.MenuItemId)
@@ -37,17 +41,30 @@ namespace Kds.Infrastructure.Persistence.Configuration
 
 			builder.Property(oi => oi.CreatedOn)
 				.HasColumnName("created_on")
-				.HasMaxLength(100)
 				.IsRequired();
+
+			builder.Property(oi => oi.Status)
+				.HasColumnName("status")
+				.HasConversion<OrderItemStatusConverter>()
+				.IsRequired();
+
+			builder.Property(oi => oi.CancelledOn)
+				.HasColumnName("cancelled_on")
+				.IsRequired(false);
 
 			builder.HasOne(oi => oi.MenuItem)
 				.WithMany()
 				.HasForeignKey(oi => oi.MenuItemId)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			builder.HasOne(a => a.Order)
-				.WithMany(a => a.OrderItems)
-				.HasForeignKey(a => a.OrderId) 
+			builder.HasOne(oi => oi.Order)
+				.WithMany(o => o.OrderItems)
+				.HasForeignKey(oi => oi.OrderId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			builder.HasOne(oi => oi.Kot)
+				.WithMany(k => k.OrderItems)
+				.HasForeignKey(oi => oi.KotId)
 				.OnDelete(DeleteBehavior.Restrict);
 
 		}
