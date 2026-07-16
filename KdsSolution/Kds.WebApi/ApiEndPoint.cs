@@ -17,5 +17,11 @@
 		public const string OrderItemMarkAsCancelled =
 		OrderBaseEndPoint + "/" + OrderId + "/order-item/" + OrderItemId + "/cancelled";
 
+		//kot api
+		public const string KotBaseEndPoint = Module + "kot";
+		public const string KotId = "{kotId}";
+		public const string MarkKotAsPreparationStarted = KotBaseEndPoint + "/" + KotId + "/mark-kot-as-preparation-started";
+		public const string MarkKotAsReady = KotBaseEndPoint + "/" + KotId + "/mark-kot-as-ready";
+		public const string MarkKotAsCancelled = KotBaseEndPoint + "/" + KotId + "/mark-kot-as-cancelled";
 	}
 }

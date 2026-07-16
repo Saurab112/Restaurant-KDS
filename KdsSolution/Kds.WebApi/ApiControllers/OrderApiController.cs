@@ -1,8 +1,10 @@
-﻿using Kds.Application.DTO;
+﻿using Asp.Versioning;
+using Kds.Application.DTO;
 using Kds.Application.Interface;
 using Kds.Domain.Exceptions.Order;
 using Kds.Infrastructure.Data;
 using Kds.WebApi.ApiModel;
+using Kds.WebApi.ApiModel.Kot;
 using Kds.WebApi.SignalR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -11,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Kds.WebApi.ApiControllers
 {
 	[ApiController]
+	[ApiVersion("1.0")]
+	[Route(ApiEndPoint.OrderBaseEndPoint)]
 	public class OrderApiController: ControllerBase
 	{
 		private readonly OrderServiceInterface _orderService;

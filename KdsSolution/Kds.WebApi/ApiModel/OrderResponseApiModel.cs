@@ -1,4 +1,6 @@
-﻿namespace Kds.WebApi.ApiModel
+﻿using Kds.WebApi.ApiModel.Kot;
+
+namespace Kds.WebApi.ApiModel
 {
 	public class OrderResponseApiModel
 	{
