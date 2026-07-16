@@ -55,7 +55,7 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.HasConversion<KotStatusConverter>()
 				.IsRequired();
 
-			builder.HasOne(oi => oi.Order)
+			builder.HasOne(oi => oi.RestaurantOrder)
 				.WithMany(a => a.Kots)
 				.HasForeignKey(oi => oi.OrderId)
 				.OnDelete(DeleteBehavior.Restrict);

@@ -6,10 +6,9 @@ namespace Kds.Domain.Entities
 	{
 		protected Order() { }
 
-		public Order(string? tableNumber,long orderId, OrderTypeEnum orderType)
+		public Order(string? tableNumber, OrderTypeEnum orderType)
 		{
 			TableNumber = tableNumber;
-			OrderId = orderId;
 			OrderType = orderType;
 			Status = OrderStatusEnum.Pending;
 			CreatedOn = DateTime.Now;
