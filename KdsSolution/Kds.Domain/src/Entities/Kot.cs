@@ -19,9 +19,9 @@ namespace Kds.Domain.Entities
 		public DateTime CreatedOn { get; protected set; }
 		public long KotNo { get; protected set; }
 		public bool IsKotPrinted { get; protected set; }
-		public DateTime KotPrintedOn { get; protected set; }
+		public DateTime? KotPrintedOn { get; protected set; }
 		public bool IsCancelKotPrinted { get; protected set;  }
-		public DateTime CancelledKotPrintedOn { get; protected set;  }
+		public DateTime? CancelledKotPrintedOn { get; protected set;  }
 		public KotStatusEnum Status { get; protected set; }
 		public ICollection<OrderItem> OrderItems { get; protected set; } = new List<OrderItem>();
 		public DateTime? KotPreparationStartedOn { get; protected set; }

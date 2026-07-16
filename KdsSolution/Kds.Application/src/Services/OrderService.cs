@@ -1,10 +1,6 @@
 ﻿using Kds.Application.DTO;
 using Kds.Application.ServiceInterface;
 using Kds.Domain.Entities;
-using Kds.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kds.Application.Services
 {
@@ -12,9 +8,32 @@ namespace Kds.Application.Services
 	{
 		public Task<Order> CreateTableOrder(OrderCreateDto orderCreateDto)
 		{
-			var order = new Order(orderCreateDto.TableNumber, OrderTypeEnum.DineIn);
-			var kotNo = 1;
-			var kot = new Kot(order, kotNo);
+			throw new NotImplementedException();
+
+		}
+
+		public Task MarkCancelledKotAsPrinted(long orderId, long kotNo, List<long> orderItemIds, long markAsCancelKotPrintedUserId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task MarkKotAsPrinted(long orderId, long kotNo, long markKotAsPrintedUserId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task MarkOrderAsReady(OrderStatusReadyDto dto)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task MarkOrderItemAsPreparationStarted(long orderItemId, long userId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task MarkOrderItemAsReady(long orderItemId, long userId)
+		{
 			throw new NotImplementedException();
 		}
 	}

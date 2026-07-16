@@ -14,7 +14,9 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		{
 			builder.ToTable("order");
 
-			builder.HasKey(o => o.OrderId).HasName("PRIMARY");
+			builder.HasKey(o => o.OrderId)
+				.HasName("PRIMARY");
+
 			builder.Property(o => o.OrderId)
 				.HasColumnName("order_id")
 				.IsRequired();
@@ -37,6 +39,16 @@ namespace Kds.Infrastructure.Persistence.Configuration
 			builder.Property(o => o.CreatedOn)
 				.HasColumnName("created_on")
 				.IsRequired();
+
+			builder.HasMany(o => o.OrderItems)
+				.WithOne(oi => oi.Order)
+				.HasForeignKey(oi => oi.OrderId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+			builder.HasMany(o => o.Kots)
+				.WithOne(k => k.RestaurantOrder)
+				.HasForeignKey(k => k.OrderId)
+				.OnDelete(DeleteBehavior.Restrict);
 
 		}
 	}

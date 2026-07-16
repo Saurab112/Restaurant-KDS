@@ -1,20 +1,16 @@
 ﻿using Kds.Application.DTO;
 using Kds.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Kds.Application.ServiceInterface
 {
 	public interface OrderServiceInterface
 	{
 		Task<Order> CreateTableOrder(OrderCreateDto orderCreateDto);
-		Task MarkKotAsPrinted(long orderId, long kotNo);
-		Task MarkKotAsPreparationStarted(long orderId, long kotId);
-		Task MarkKotAsReady(long orderId, long kotId);
-		Task MarkKotAsCancelled(long orderId, long kotId);
-		Task MarkOrderItemAsPreparationStarted(long orderItemId);
-		Task MarkOrderItemAsReady(long orderItemId);
+		Task MarkOrderAsReady(OrderStatusReadyDto dto);
+		Task MarkKotAsPrinted(long orderId, long kotNo, long markKotAsPrintedUserId);
+		Task MarkCancelledKotAsPrinted(long orderId, long kotNo, List<long> orderItemIds, long markAsCancelKotPrintedUserId);
+		Task MarkOrderItemAsPreparationStarted(long orderItemId, long userId);
+		Task MarkOrderItemAsReady(long orderItemId, long userId);
 
 	}
 }
