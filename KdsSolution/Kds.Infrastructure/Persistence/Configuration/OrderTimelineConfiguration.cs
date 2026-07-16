@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Kds.Infrastructure.Persistence.Configuration
 {
-	public class OrderTimelineConfiguration
+	public class OrderTimelineConfiguration: IEntityTypeConfiguration<OrderTimeline>
 	{
 		public void Configure(EntityTypeBuilder<OrderTimeline> builder)
 		{
@@ -38,7 +38,8 @@ namespace Kds.Infrastructure.Persistence.Configuration
 
 			builder.HasOne(ot => ot.Order)
 				.WithMany(o => o.OrderTimelines)
-				.HasForeignKey(ot => ot.OrderId);
+				.HasForeignKey(ot => ot.OrderId)
+				.OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }

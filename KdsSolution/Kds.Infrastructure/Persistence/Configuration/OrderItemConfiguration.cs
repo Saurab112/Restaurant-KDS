@@ -35,14 +35,16 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.HasMaxLength(500)
 				.IsRequired(false);
 
-			builder.HasOne(oi => oi.Order)
-				.WithMany(o => o.OrderItems)
-				.HasForeignKey(oi => oi.OrderId);
-
 			builder.HasOne(oi => oi.MenuItem)
 				.WithMany()
 				.HasForeignKey(oi => oi.MenuItemId)
 				.OnDelete(DeleteBehavior.Restrict);
+
+			builder.HasOne(a => a.Order)
+				.WithMany(a => a.OrderItems)
+				.HasForeignKey(a => a.OrderId) 
+				.OnDelete(DeleteBehavior.Restrict);
+
 		}
 	}
 }

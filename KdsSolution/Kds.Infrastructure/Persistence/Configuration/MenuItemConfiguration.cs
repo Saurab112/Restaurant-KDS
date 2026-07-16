@@ -24,7 +24,7 @@ namespace Kds.Infrastructure.Persistence.Configuration
 				.IsRequired();
 
 			builder.Property(m => m.Category)
-				.HasColumnName("menu_category_id") 
+				.HasColumnName("category") 
 				.HasMaxLength(100)
 				.IsRequired();
 
