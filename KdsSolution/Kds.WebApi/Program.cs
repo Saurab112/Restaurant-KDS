@@ -1,5 +1,6 @@
 using Kds.Application.Di;
 using Kds.Infrastructure;
+using Kds.WebApi.Middleware;
 using Kds.WebApi.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,13 @@ builder.Services.RepositoryInterfaceDiConfig();
 builder.Services.ServiceInterfaceDiConfig();
 
 builder.Services.AddAuthentication();
+builder.Services.AddControllersWithViews()
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+	});
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,6 +30,7 @@ if (app.Environment.IsDevelopment())
 	app.UseDeveloperExceptionPage();
 }
 
+app.UseGlobalExceptionLoggerMiddleware();
 app.UseSwagger();
 app.UseSwaggerUI();
 

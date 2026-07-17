@@ -5,6 +5,9 @@ namespace Kds.Domain.Entities
 {
 	public class Order
 	{
+
+		public const string OrderSequenceKey = "ORDER_ID";
+		public const string OrderGroupKey = "ORDER_GROUP";
 		protected Order() { }
 
 		public Order(string? tableNumber)

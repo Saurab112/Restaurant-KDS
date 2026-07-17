@@ -9,7 +9,6 @@ namespace Kds.Application.DTO
 	{
 		public long MenuItemId { get; set; }
 		public long Quantity { get; set; }
-		public decimal Rate { get; set; }
 		public string? Remarks { get; set; }
 	}
 }

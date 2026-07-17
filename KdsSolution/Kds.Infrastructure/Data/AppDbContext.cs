@@ -12,6 +12,7 @@ namespace Kds.Infrastructure.Data
 		public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 		public DbSet<MenuItem> MenuItems => Set<MenuItem>();
 		public DbSet<Kot> Kots => Set<Kot>();
+		public DbSet<Sequence> Sequences => Set<Sequence>();
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -24,6 +25,7 @@ namespace Kds.Infrastructure.Data
 			modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
 			modelBuilder.ApplyConfiguration(new MenuItemConfiguration());
 			modelBuilder.ApplyConfiguration(new KotConfiguration());
+			modelBuilder.ApplyConfiguration(new SequenceConfiguration());
 		}
 	}
 }

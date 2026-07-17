@@ -4,6 +4,7 @@ using Kds.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kds.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260717182944_SequenceEntity")]
+    partial class SequenceEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,21 +195,28 @@ namespace Kds.Infrastructure.Migrations
 
             modelBuilder.Entity("Kds.Domain.Entities.Sequence", b =>
                 {
-                    b.Property<string>("SequenceKey")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("sequence_key");
+                    b.Property<long>("SequenceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("sequence_id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("SequenceId"));
 
                     b.Property<string>("SequenceGroup")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
+                        .IsRequired()
+                        .HasColumnType("longtext")
                         .HasColumnName("sequence_group");
+
+                    b.Property<string>("SequenceKey")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("sequence_key");
 
                     b.Property<long>("SequenceValue")
                         .HasColumnType("bigint")
                         .HasColumnName("sequence_value");
 
-                    b.HasKey("SequenceKey", "SequenceGroup");
+                    b.HasKey("SequenceId");
 
                     b.ToTable("sequence", (string)null);
                 });

@@ -10,6 +10,8 @@ namespace Kds.Application.Di
 		{
 			services.AddScoped<OrderServiceInterface, OrderService>();
 			services.AddScoped<KotServiceInterface, KotService>();
+			services.AddScoped<MenuItemServiceInterface, MenuItemService>();
+			services.AddScoped<SequenceServiceInterface, SequenceService>();
 		}
 	}
 }
