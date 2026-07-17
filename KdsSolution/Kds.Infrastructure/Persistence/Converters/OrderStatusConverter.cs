@@ -6,24 +6,14 @@ using System.Text;
 
 namespace Kds.Infrastructure.Persistence.Converters
 {
-	public class OrderStatusConverter : ValueConverter<OrderStatusEnum, int>
+	public class OrderStatusConverter : ValueConverter<OrderStatusEnum, string>
 	{
 		public OrderStatusConverter()
 			: base(
-				status => status.Id, 
-				id => ConvertToOrderStatus(id) 
+				status => status.Name,
+				name => Enumeration.GetAll<OrderStatusEnum>().FirstOrDefault(status => status.Name == name)
 			)
 		{
 		}
-
-		private static OrderStatusEnum ConvertToOrderStatus(int id) => id switch
-		{
-			1 => OrderStatusEnum.Pending,
-			2 => OrderStatusEnum.Preparing,
-			3 => OrderStatusEnum.Ready,
-			4 => OrderStatusEnum.Completed,
-			5 => OrderStatusEnum.Cancelled,
-			_ => throw new ArgumentOutOfRangeException(nameof(id), $"Unknown Order Status ID: {id}")
-		};
 	}
 }

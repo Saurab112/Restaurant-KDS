@@ -1,24 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kds.Domain.Enums
+﻿namespace Kds.Domain.Enums
 {
-	public class OrderStatusEnum
+	public class OrderStatusEnum : Enumeration
 	{
-		public int Id { get; private set; }
-		public string Name { get; private set; }
+		private const string StatusPending = "Pending";
+		private const string StatusPreparing = "Preparing";
+		private const string StatusReady = "Ready";
+		private const string StatusCompleted = "Completed";
+		private const string StatusCancelled = "Cancelled";
 
 		private OrderStatusEnum(int id, string name)
+			: base(id, name)
 		{
-			Id = id;
-			Name = name;
 		}
 
-		public static readonly OrderStatusEnum Pending = new(1, "Pending");
-		public static readonly OrderStatusEnum Preparing = new(2, "Preparing");
-		public static readonly OrderStatusEnum Ready = new(3, "Ready");
-		public static readonly OrderStatusEnum Completed = new(4, "Completed");
-		public static readonly OrderStatusEnum Cancelled = new(5, "Cancelled");
+		public static readonly OrderStatusEnum Pending =
+			new(1, StatusPending);
+
+		public static readonly OrderStatusEnum Preparing =
+			new(2, StatusPreparing);
+
+		public static readonly OrderStatusEnum Ready =
+			new(3, StatusReady);
+
+		public static readonly OrderStatusEnum Completed =
+			new(4, StatusCompleted);
+
+		public static readonly OrderStatusEnum Cancelled =
+			new(5, StatusCancelled);
 	}
 }

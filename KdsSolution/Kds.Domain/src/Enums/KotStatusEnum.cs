@@ -4,21 +4,45 @@ using System.Text;
 
 namespace Kds.Domain.Enums
 {
-	public class KotStatusEnum
+	public class KotStatusEnum : Enumeration
 	{
-		public int Id { get; private set; }
-		public string Name { get; private set; }
+		private const string StatusPending = "Pending";
+		private const string StatusPreparing = "Preparing";
+		private const string StatusReady = "Ready";
+		private const string StatusCancelled = "Cancelled";
+		private const string StatusCompleted = "Completed";
 
 		private KotStatusEnum(int id, string name)
+			: base(id, name)
 		{
-			Id = id;
-			Name = name;
 		}
 
-		public static readonly KotStatusEnum Pending = new(1, "Pending");
-		public static readonly KotStatusEnum Preparing = new(2, "Preparing");
-		public static readonly KotStatusEnum Ready = new(3, "Ready");
-		public static readonly KotStatusEnum Cancelled = new(4, "Cancelled");
-		public static readonly KotStatusEnum Completed = new(5, "Completed");
+		public static readonly KotStatusEnum Pending =
+			new(1, StatusPending);
+
+		public static readonly KotStatusEnum Preparing =
+			new(2, StatusPreparing);
+
+		public static readonly KotStatusEnum Ready =
+			new(3, StatusReady);
+
+		public static readonly KotStatusEnum Cancelled =
+			new(4, StatusCancelled);
+
+		public static readonly KotStatusEnum Completed =
+			new(5, StatusCompleted);
+
+		public static KotStatusEnum FromName(string name)
+		{
+			return name switch
+			{
+				StatusPreparing => Preparing,
+				StatusReady => Ready,
+				StatusCancelled => Cancelled,
+				StatusPending => Pending,
+				StatusCompleted => Completed,
+				_ => throw new ArgumentException("Invalid KotStatus name", nameof(name))
+			};
+		}
 	}
 }
