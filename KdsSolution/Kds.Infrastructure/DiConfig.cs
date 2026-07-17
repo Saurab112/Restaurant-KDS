@@ -1,4 +1,5 @@
 ﻿using Kds.Application.Interface;
+using Kds.Application.UnitOfWork;
 using Kds.Infrastructure.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,6 +16,7 @@ namespace Kds.Infrastructure
 			services.AddScoped<KotRepositoryInterface, KotRepository>();
 			services.AddScoped<OrderItemRepositoryInterface, OrderItemRepository>();
 			services.AddScoped<MenuItemRepositoryInterface, MenuItemRepository>();
+			services.AddScoped<UnitOfWorkInterface, UnitOfWork>();
 		}
 
 	}

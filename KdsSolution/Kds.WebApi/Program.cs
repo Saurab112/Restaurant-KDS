@@ -10,8 +10,13 @@ builder.Services.RepositoryInterfaceDiConfig();
 builder.Services.ServiceInterfaceDiConfig();
 
 builder.Services.AddAuthentication();
+builder.Services.AddControllersWithViews()
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+	});
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

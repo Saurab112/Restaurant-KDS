@@ -32,7 +32,6 @@ namespace Kds.WebApi.ApiControllers
 			var orderItemDtoList = apiModel.OrderItems.Select(item => new OrderItemDto
 			{
 				Quantity = item.Quantity,
-				Rate = item.Rate,
 				MenuItemId = item.MenuItemId,
 				Remarks = item.Remarks,
 			}).ToList();
