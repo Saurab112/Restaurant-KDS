@@ -27,7 +27,6 @@ namespace Kds.Domain.Entities
 		public MenuItem MenuItem { get; protected set; } = null!; 
 		public long Quantity { get; protected set; } 
 		public string? Remarks { get; protected set; } 
-		//newly added
 		public DateTime CreatedOn { get; protected set; }
 		public OrderItemStatusEnum Status { get; protected set; } = null!;
 		public DateTime? CancelledOn { get; protected set; }

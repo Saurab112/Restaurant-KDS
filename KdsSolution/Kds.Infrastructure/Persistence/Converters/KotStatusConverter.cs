@@ -6,24 +6,12 @@ using System.Text;
 
 namespace Kds.Infrastructure.Persistence.Converters
 {
-	public class KotStatusConverter: ValueConverter<KotStatusEnum, int>
+	public class KotStatusConverter : ValueConverter<KotStatusEnum, string>
 	{
-		public KotStatusConverter()
-			:base(
-				 status => status.Id,
-				 id => ConvertToKotStatus(id)
-			)
+		public KotStatusConverter() : base(
+			v => v.Name,
+			v => KotStatusEnum.FromName(v))
 		{
 		}
-
-		private static KotStatusEnum ConvertToKotStatus(int id) => id switch
-		{
-			1 => KotStatusEnum.Pending,
-			2 => KotStatusEnum.Preparing,
-			3 => KotStatusEnum.Ready,
-			4 => KotStatusEnum.Completed,
-			5 => KotStatusEnum.Cancelled,
-			_ => throw new ArgumentOutOfRangeException(nameof(id), $"Unknown Kot Status ID: {id}")
-		};
 	}
 }
