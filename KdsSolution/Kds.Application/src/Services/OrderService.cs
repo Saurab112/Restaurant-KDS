@@ -12,12 +12,15 @@ namespace Kds.Application.Services
 		private readonly OrderRepositoryInterface _orderRepository;
 		private readonly MenuItemRepositoryInterface _menuItemRepository;
 		private readonly UnitOfWorkInterface _unitOfWork;
+		private readonly SequenceRepositoryInterface _sequenceRepository;
 
-		public OrderService(OrderRepositoryInterface orderRepository, MenuItemRepositoryInterface menuItemRepository, UnitOfWorkInterface unitOfWork)
+		public OrderService(OrderRepositoryInterface orderRepository, MenuItemRepositoryInterface menuItemRepository, UnitOfWorkInterface unitOfWork,
+			SequenceRepositoryInterface sequenceRepository)
 		{
 			_orderRepository = orderRepository;
 			_menuItemRepository = menuItemRepository;
 			_unitOfWork = unitOfWork;
+			_sequenceRepository = sequenceRepository;
 		}
 		public async Task<Order> CreateTableOrder(OrderCreateDto orderCreateDto)
 		{
@@ -26,8 +29,7 @@ namespace Kds.Application.Services
 
 			var order = new Order(orderCreateDto.TableNumber);
 
-			//var kotNo = await _kotSequenceProvider.GetNextKotNoAsync();
-			var kotNo = 1; // For demonstration purposes, using a static value. Replace with actual sequence provider.
+			var kotNo = await _sequenceRepository.GenerateSequenceId("KOT", "DEFAULT", 1);
 			var kot = new Kot(order, kotNo);
 
 			foreach (var itemDto in orderCreateDto.OrderItems)

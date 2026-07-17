@@ -17,6 +17,8 @@ namespace Kds.Infrastructure
 			services.AddScoped<OrderItemRepositoryInterface, OrderItemRepository>();
 			services.AddScoped<MenuItemRepositoryInterface, MenuItemRepository>();
 			services.AddScoped<UnitOfWorkInterface, UnitOfWork>();
+			services.AddScoped<SequenceRepositoryInterface, SequenceRepository>();
+
 		}
 
 	}
