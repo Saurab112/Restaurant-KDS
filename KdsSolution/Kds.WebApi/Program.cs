@@ -1,5 +1,6 @@
 using Kds.Application.Di;
 using Kds.Infrastructure;
+using Kds.WebApi.Middleware;
 using Kds.WebApi.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ if (app.Environment.IsDevelopment())
 	app.UseDeveloperExceptionPage();
 }
 
+app.UseGlobalExceptionLoggerMiddleware();
 app.UseSwagger();
 app.UseSwaggerUI();
 
