@@ -12,11 +12,22 @@ namespace Kds.Infrastructure.Persistence.Configuration
 		public void Configure(EntityTypeBuilder<Sequence> builder)
 		{
 			builder.ToTable("sequence");
-			builder.HasKey(e => e.SequenceId);
-			builder.Property(e => e.SequenceId).HasColumnName("sequence_id").IsRequired();
-			builder.Property(e => e.SequenceKey).HasColumnName("sequence_key").IsRequired();
-			builder.Property(e => e.SequenceGroup).HasColumnName("sequence_group").IsRequired();
-			builder.Property(e => e.SequenceValue).HasColumnName("sequence_value").IsRequired();
+
+			builder.HasKey(e => new { e.SequenceKey, e.SequenceGroup });
+
+			builder.Property(e => e.SequenceKey)
+				.HasColumnName("sequence_key")
+				.HasMaxLength(100)
+				.IsRequired();
+
+			builder.Property(e => e.SequenceGroup)
+				.HasColumnName("sequence_group")
+				.HasMaxLength(100)
+				.IsRequired();
+
+			builder.Property(e => e.SequenceValue)
+				.HasColumnName("sequence_value")
+				.IsRequired();
 		}
 	}
-	}
+}
